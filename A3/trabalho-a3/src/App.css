@@ -1,0 +1,33 @@
+    body{
+        background-color:  #B6B6B4;
+    }
+    table{
+        background-image: linear-gradient(to right,#D1D0CE, #98AFC7 );
+    }
+    h1{
+        color: rgb(0, 0, 0);
+    }
+    p{
+        text-align: center;
+        color: rgb(20, 16, 16);
+    }
+
+    img{
+        width: 50%;
+
+    }
+    .container{
+        position: relative;
+    }
+    button{
+        display:inline-block;
+        width: 150 px;
+        margin-right: 5px;
+    }
+    img{
+       margin-top: 150px;
+       display: flex;
+       justify-content: center;
+       width: 500px;
+       height: 250px;
+    }
