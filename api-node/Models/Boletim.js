@@ -8,15 +8,15 @@ const Boletim = db.define('boletin', {
         autoIncrement: true,
         allowNull: false
     },
-    matricula_aluno: {
+    matricula: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    sala: {
-        type: Sequelize.INTEGER,
+    turma: {
+        type: Sequelize.STRING(50),
         allowNull: false
     },
-    nota_final: {
+    notaFinal: {
         type: Sequelize.FLOAT,
         allowNull: false
     },aprovacao: {
@@ -26,6 +26,6 @@ const Boletim = db.define('boletin', {
     
 });
 
-//Boletim.sync();
+//Boletim.sync({ alter: true });
 
 module.exports = Boletim

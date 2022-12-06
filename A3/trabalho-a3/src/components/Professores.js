@@ -234,7 +234,7 @@ abrirModal = () => {
 
                     <Form.Group className="mb-3">
                     <Form.Label>Digite o CPF do Professor:</Form.Label>
-                    <Form.Control type="number" placeholder="Ex: 000.000.000.00" value={this.state.cpf} onChange={this.atualizarCPF.bind(this)}/>
+                    <Form.Control type="text" placeholder="Ex: 000.000.000.00" value={this.state.cpf} onChange={this.atualizarCPF.bind(this)}/>
                     </Form.Group>
 
                     <Form.Group className="mb-3">

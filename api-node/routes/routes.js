@@ -12,13 +12,21 @@ module.exports = (app) =>{
         .delete(app.Controller.AlunoController.remove)
 
         
-        app.route("/professor")
-        .get(app.Controller.ProfessorController.get)
-        .post(app.Controller.ProfessorController.create)
-        .put(app.Controller.ProfessorController.save)
+    app.route("/professor")
+    .get(app.Controller.ProfessorController.get)
+    .post(app.Controller.ProfessorController.create)
+    .put(app.Controller.ProfessorController.save)
 
-        app.route("/professor/:cpf")
-        .get(app.Controller.ProfessorController.search)
-        .delete(app.Controller.ProfessorController.remove)
+    app.route("/professor/:cpf")
+    .get(app.Controller.ProfessorController.search)
+    .delete(app.Controller.ProfessorController.remove)
+
+    app.route("/boletim")
+    .get(app.Controller.BoletimController.get)
+    .post(app.Controller.BoletimController.create)
+    .put(app.Controller.BoletimController.save)
+
+    app.route("/boletim/:id")
+    .get(app.Controller.BoletimController.search)
 
 }

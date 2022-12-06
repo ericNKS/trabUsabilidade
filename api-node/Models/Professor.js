@@ -3,7 +3,7 @@ const db = require('./database');
 
 const Professor = db.define('professor', {
     cpf: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(15),
         primaryKey: true,
         allowNull: false
     },
@@ -22,6 +22,6 @@ const Professor = db.define('professor', {
     
 });
 
-//Professor.sync();
+//Professor.sync({ alter: true });
 
 module.exports = Professor

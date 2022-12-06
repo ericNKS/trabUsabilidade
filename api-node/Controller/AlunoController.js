@@ -23,8 +23,10 @@ module.exports = (app) =>{
               }
         })
         if(alunos === null){
+            console.log("Sem aluno no banco");
             return res.json({status:"true"});
         }else{
+            console.log("Com aluno no banco");
             return res.json({status:"false"});
         }
     }
@@ -60,6 +62,7 @@ module.exports = (app) =>{
             }
         })
         const user = req.body;
+        console.log(user);
         alunos.set(user);
         await alunos.save().then(()=>{
             return res.send("ok")

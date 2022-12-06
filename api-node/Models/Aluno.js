@@ -9,7 +9,7 @@ const Aluno = db.define('aluno', {
         allowNull: false
     },
     cpf: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(15),
         allowNull: false
     },
     nome: {
@@ -17,12 +17,12 @@ const Aluno = db.define('aluno', {
         allowNull: false
     },
     sala: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING(50),
         allowNull: true
     }
     
 });
 
-//Aluno.sync();
+//Aluno.sync({ alter: true });
 
 module.exports = Aluno

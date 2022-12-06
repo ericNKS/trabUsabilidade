@@ -158,7 +158,6 @@ class Alunos extends React.Component{
                 sala: e.target.value
             }
         )
-        console.log(e.target.value);
     }
 
     salvar() {
@@ -179,6 +178,7 @@ class Alunos extends React.Component{
                     matricula: this.state.matricula,
                     sala: this.state.sala
                 }
+                
                     this.atualizarAluno(alunoAtualizar);
                     
                 
@@ -213,7 +213,7 @@ fecharModal = () => {
 abrirModal = () => {
     this.setState(
         {
-            modalAberto: true
+            modalAberto: true,
         }
     )
 }
@@ -238,7 +238,7 @@ abrirModal = () => {
 
                     <Form.Group className="mb-3">
                     <Form.Label>Digite o CPF do Aluno:</Form.Label>
-                    <Form.Control type="number" placeholder="Ex: 000.000.000.00" value={this.state.cpf} onChange={this.atualizarCPF.bind(this)}/>
+                    <Form.Control type="text" placeholder="Ex: 000.000.000.00" value={this.state.cpf} onChange={this.atualizarCPF.bind(this)}/>
                     </Form.Group>
 
                     <Form.Group className="mb-3">
@@ -248,7 +248,9 @@ abrirModal = () => {
 
                     <Form.Group className="mb-3">
                     <Form.Label>Selecione o módulo:</Form.Label>
-                    <Form.Check label="Módulo 1" type="radio" name="salas" value={1} onChange={this.atualizarSala.bind(this)}/>
+                    <Form.Check label="Módulo 1" type="radio" name="salas" value={"Módulo 1"} onChange={this.atualizarSala.bind(this)}/>
+                    <Form.Check label="Módulo 2" type="radio" name="salas" value={"Módulo 2"} onChange={this.atualizarSala.bind(this)} />
+                    <Form.Check label="Módulo 3" type="radio" name="salas" value={"Módulo 3"} onChange={this.atualizarSala.bind(this)}/>
                     </Form.Group>
                     
                     </Form>

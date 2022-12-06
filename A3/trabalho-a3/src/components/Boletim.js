@@ -9,10 +9,13 @@ class Boletim extends React.Component{
 
         this.state = {
             id: 0,
+            matricula: '',
             nome: '',
             turma: '',
             notaFinal: '',
-            boletins : [{'id':1, 'nome':'Pedro', 'turma':'Módulo 1', 'notaFinal':'6'}],
+            aprovacao: '',
+            boletins : [],
+            retorno:{},
             modalAberto: false
         }
     }
@@ -26,38 +29,27 @@ class Boletim extends React.Component{
     }
 
     buscarBoletim = () => {
-        fetch("https://localhost:5001/alunos")
+        fetch("http://localhost:5001/boletim", {method: 'GET'})
         .then(resposta => resposta.json())
         .then(dados => {
+            console.log(dados);
             this.setState( {boletins : dados})
         })
     }    
 
-    deletarBoletim = (id) => {
-        fetch("https://localhost:5001/alunos"+id, {method: 'DELETE'})
-        .then(resposta =>  {
-          if(resposta.ok) {
-            this.buscarBoletim();
-            }
-        })
-    }
-
-    buscarDados = (id) => {
-        fetch("https://localhost:5001/alunos"+id, {method: 'GET'})
+    buscarDados = (matricula) => {
+        fetch("http://localhost:5001/boletim/"+matricula, {method: 'GET'})
         .then(resposta => resposta.json())
         .then(boletim => {
             this.setState( {
-                id : boletim.id,
-                nome: boletim.nome,
-                turma: boletim.turma,
-                notaFinal: boletim.notaFinal
+                retorno:boletim
             })
-            this.abrirModal();
+            console.log(boletim);
         })
     }
 
     cadastrarBoletim = (boletim) => {
-        fetch("https://localhost:5001/alunos",
+        fetch("http://localhost:5001/boletim",
         {method: 'POST', 
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(boletim)
@@ -69,8 +61,12 @@ class Boletim extends React.Component{
         })
     }
 
+
+
+
+    
     atualizarBoletim = (boletim) => {
-        fetch("https://localhost:5001/alunos",
+        fetch("http://localhost:5001/boletim",
         {method: 'PUT', 
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(boletim)
@@ -88,10 +84,10 @@ class Boletim extends React.Component{
             <Table striped bordered hover size="sm">
                 <thead>
                     <tr>
-                        <th>Nome</th>
+                        <th>Matrícula</th>
                         <th>Turma</th>
                         <th>Nota Final</th>
-                        <th>Opções</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,12 +95,13 @@ class Boletim extends React.Component{
                     {this.state.boletins.map((boletim) => 
                     
                         <tr>
-                            <td>{boletim.nome}</td>
+                            <td>{boletim.matricula}</td>
                             <td>{boletim.turma}</td>
                             <td>{boletim.notaFinal}</td>
+                            <td>{boletim.aprovacao? 'Aprovado':'Reprovado'}</td>
                             <td>
-                                <Button variant="primary" onClick={() => this.buscarDados(boletim.id)}>Atualizar</Button> 
-                                <Button variant="danger" onClick={() => this.deletarAluno(boletim.id)}>Excluir</Button></td>
+                                <Button variant="primary" onClick={() => this.abrirModal(boletim.id,boletim.matricula)}>Atualizar</Button> 
+                            </td>
                         </tr>
                     )
                 }    
@@ -112,21 +109,22 @@ class Boletim extends React.Component{
             </Table>
         )
     }
-
-    atualizarNome = (e) => {
+    atualizarMatricula = (e) => {
         this.setState(
             {
-                nome: e.target.value
+                matricula: e.target.value
             }
         )
     }
 
-   atualizarTurma = (e) => {
+    atualizarDisciplina = (e) => {
         this.setState(
             {
                 turma: e.target.value
             }
         )
+        this.buscarDados(this.state.id)
+        console.log(this.state.id);
     }
 
     atualizarNotaFinal = (e) => {
@@ -139,21 +137,27 @@ class Boletim extends React.Component{
 
 
     salvar() {
-
-        if(this.state.id == 0) {
+        if(this.state.retorno.status === 'true') {
+            let aleatorio = Math.random() * (10 - 1) + 1;
+            let nota = aleatorio.toFixed(2)
             const boletim = {
-                nome: this.state.nome,
+                matricula: this.state.matricula,
                 turma: this.state.turma,
-                notaFinal: this.state.notaFinal
+                notaFinal: nota,
+                aprovacao: nota >= 6 ? true : false 
             }
                 this.cadastrarBoletim(boletim);
         }
         else{
+            let aleatorio = Math.random() * (10 - 1) + 1;
+            let nota = aleatorio.toFixed(2)
             const boletim = {
                 id: this.state.id,
+                matricula: this.state.matricula,
                 nome: this.state.nome,
                 turma: this.state.turma,
-                notaFinal: this.state.notaFinal
+                notaFinal: nota,
+                aprovacao: nota >= 6 ? true : false 
             }
                 this.atualizarBoletim(boletim);
         }
@@ -184,10 +188,12 @@ fecharModal = () => {
     )
 }   
 
-abrirModal = () => {
+abrirModal = (Id, Matricula) => {
     this.setState(
         {
-            modalAberto: true
+            modalAberto: true,
+            id: Id,
+            matricula: Matricula
         }
     )
 }
@@ -205,26 +211,23 @@ abrirModal = () => {
                     <Form >
 
                     <Form.Group className="mb-3">
-                    <Form.Label>ID:</Form.Label>
-                    <Form.Control type="text" value={this.state.id} readOnly={true}/> 
+                    <Form.Label>Digite a matricula do aluno:</Form.Label>
+                    <Form.Control type="number" placeholder="Ex: 1234" value={this.state.matricula} onChange={this.atualizarMatricula.bind(this)}/> 
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                    <Form.Label>Digite o nome do Professor:</Form.Label>
-                    <Form.Control type="text" placeholder="Ex: João da Silva" value={this.state.nome} onChange={this.atualizarNome}/> 
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                    <Form.Label>Digite o turma do Professor:</Form.Label>
-                    <Form.Control type="number" placeholder="Ex: 000.000.000.00" value={this.state.turma} onChange={this.alturarTurma}/>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                    <Form.Label>Selecione o Título Acadêmico do Professor:</Form.Label>
-                    <Form.Check label="Graduação (Licenciatura)" type="radio" name="titulos" value={this.state.notaFinal} onChange={this.atualizarNotaFinal}/>
-                    <Form.Check label="Pós-Graduação" type="radio" name="titulos" value={this.state.notaFinal} onChange={this.atualizarNotaFinal}/>
-                    <Form.Check label="Mestrado" type="radio" name="titulos" value={this.state.notaFinal} onChange={this.atualizarNotaFinal}/>
-                    <Form.Check label="Doutorado" type="radio" name="titulos" value={this.state.notaFinal} onChange={this.atualizarNotaFinal}/>
+                    <Form.Label>Selecione a disciplina:</Form.Label>
+                    <Form.Check label="Português" type="radio" name="disciplinas" value={'Português'} onChange={this.atualizarDisciplina.bind(this)}/>
+                    <Form.Check label="Inglês" type="radio" name="disciplinas" value={'Inglês'} onChange={this.atualizarDisciplina.bind(this)}/>
+                    <Form.Check label="Matemática" type="radio" name="disciplinas" value={'Matemática'} onChange={this.atualizarDisciplina.bind(this)}/>
+                    <Form.Check label="História" type="radio" name="disciplinas" value={'História'} onChange={this.atualizarDisciplina.bind(this)}/>
+                    <Form.Check label="Geografia" type="radio" name="disciplinas" value={'Geografia'} onChange={this.atualizarDisciplina.bind(this)}/>
+                    <Form.Check label="Ed. Física" type="radio" name="disciplinas" value={'Ed. Física'} onChange={this.atualizarDisciplina.bind(this)}/>
+                    <Form.Check label="Biologia" type="radio" name="disciplinas" value={'Biologia'} onChange={this.atualizarDisciplina.bind(this)}/>
+                    <Form.Check label="Química" type="radio" name="disciplinas" value={'Química'} onChange={this.atualizarDisciplina.bind(this)}/>
+                    <Form.Check label="Física" type="radio" name="disciplinas" value={'Física'} onChange={this.atualizarDisciplina.bind(this)}/>
+                    <Form.Check label="Sociologia" type="radio" name="disciplinas" value={'Sociologia'} onChange={this.atualizarDisciplina.bind(this)}/>
+                    <Form.Check label="Filosofia" type="radio" name="disciplinas" value={'Filosofia'} onChange={this.atualizarDisciplina.bind(this)}/>
                     </Form.Group>
 
                     
@@ -235,7 +238,7 @@ abrirModal = () => {
                     <Button variant="secondary" onClick={this.fecharModal}>
                     Close
                     </Button>
-                    <Button variant="success" onClick={this.salvar}>Salvar</Button>
+                    <Button variant="success" onClick={this.salvar.bind(this)}>Salvar</Button>
                 </Modal.Footer>
                 </Modal>
 
