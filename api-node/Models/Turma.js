@@ -9,16 +9,16 @@ const Turma = db.define('turma', {
         allowNull: false
     },
     sala: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING(100),
         allowNull: false
     },
-    diciplina: {
+    professores: {
         type: Sequelize.STRING(100),
         allowNull: false
     }
     
 });
 
-Turma.sync();
+//Turma.sync({ alter: true });
 
 module.exports = Turma

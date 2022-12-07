@@ -9,7 +9,10 @@ module.exports = (app) =>{
 
     app.route("/alunos/:matricula")
         .get(app.Controller.AlunoController.search)
+        .get(app.Controller.AlunoController.verificaBoletim)
         .delete(app.Controller.AlunoController.remove)
+    app.route("/alunos/boletim/:matricula")
+        .get(app.Controller.AlunoController.verificaBoletim)
 
         
     app.route("/professor")
@@ -28,5 +31,13 @@ module.exports = (app) =>{
 
     app.route("/boletim/:id")
     .get(app.Controller.BoletimController.search)
+
+    app.route("/turma")
+    .get(app.Controller.TurmaController.get)
+    .post(app.Controller.TurmaController.create)
+    //.put(app.Controller.TurmaController.save)
+
+    app.route("/turma/:id")
+    .delete(app.Controller.TurmaController.remove)
 
 }

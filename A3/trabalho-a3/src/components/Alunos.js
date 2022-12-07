@@ -15,7 +15,8 @@ class Alunos extends React.Component{
             sala: '',
             alunos : [],
             modalAberto: false,
-            retorno: {}
+            retorno: {},
+            retornoBoletim: {}
         }
 
     }
@@ -66,7 +67,15 @@ class Alunos extends React.Component{
         }
     })
 }
-
+    
+    buscarBoletim = (id) => {
+        fetch("http://localhost:5001/alunos/boletim/"+id, {method: 'GET'})
+        .then(resposta => resposta.json())
+        .then(dados => {
+            
+            console.log(dados);
+        })
+    }
 
 
     buscarAlunoEs = (id) => {
@@ -76,6 +85,10 @@ class Alunos extends React.Component{
             this.setState({
                 retorno: dados
             })
+            if(dados.status == 'false')
+            {
+                this.buscarBoletim(id)
+            }
         })
     }
 
@@ -161,7 +174,6 @@ class Alunos extends React.Component{
     }
 
     salvar() {
-            
             if(this.state.retorno.status === 'true')
             {
                 const alunoCriar = {
@@ -245,12 +257,10 @@ abrirModal = () => {
                     <Form.Label>Digite a matrícula do Aluno:</Form.Label>
                     <Form.Control type="number" placeholder="Ex: 1234" value={this.state.matricula} onChange={this.atualizarMatricula.bind(this)}/>
                     </Form.Group>
-
+            
                     <Form.Group className="mb-3">
                     <Form.Label>Selecione o módulo:</Form.Label>
-                    <Form.Check label="Módulo 1" type="radio" name="salas" value={"Módulo 1"} onChange={this.atualizarSala.bind(this)}/>
-                    <Form.Check label="Módulo 2" type="radio" name="salas" value={"Módulo 2"} onChange={this.atualizarSala.bind(this)} />
-                    <Form.Check label="Módulo 3" type="radio" name="salas" value={"Módulo 3"} onChange={this.atualizarSala.bind(this)}/>
+                    <Form.Check label="Módulo 1" type="radio" name="salas" value={this.state.sala} onChange={this.atualizarSala.bind(this)}/>
                     </Form.Group>
                     
                     </Form>

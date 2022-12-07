@@ -196,6 +196,8 @@ abrirModal = (Id, Matricula) => {
             matricula: Matricula
         }
     )
+    console.log(`ID: ${Id}`);
+    console.log(`Matricula: ${Matricula}`);
 }
 
     render() {
@@ -216,20 +218,11 @@ abrirModal = (Id, Matricula) => {
                     </Form.Group>
 
                     <Form.Group className="mb-3">
-                    <Form.Label>Selecione a disciplina:</Form.Label>
-                    <Form.Check label="Português" type="radio" name="disciplinas" value={'Português'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Inglês" type="radio" name="disciplinas" value={'Inglês'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Matemática" type="radio" name="disciplinas" value={'Matemática'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="História" type="radio" name="disciplinas" value={'História'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Geografia" type="radio" name="disciplinas" value={'Geografia'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Ed. Física" type="radio" name="disciplinas" value={'Ed. Física'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Biologia" type="radio" name="disciplinas" value={'Biologia'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Química" type="radio" name="disciplinas" value={'Química'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Física" type="radio" name="disciplinas" value={'Física'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Sociologia" type="radio" name="disciplinas" value={'Sociologia'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Filosofia" type="radio" name="disciplinas" value={'Filosofia'} onChange={this.atualizarDisciplina.bind(this)}/>
+                    <Form.Label>Selecione o módulo:</Form.Label>
+                    <Form.Check label="Módulo 1" type="radio" name="salas" value={"Módulo 1"} onChange={this.atualizarDisciplina.bind(this)}/>
+                    <Form.Check label="Módulo 2" type="radio" name="salas" value={"Módulo 2"} onChange={this.atualizarDisciplina.bind(this)} />
+                    <Form.Check label="Módulo 3" type="radio" name="salas" value={"Módulo 3"} onChange={this.atualizarDisciplina.bind(this)}/>
                     </Form.Group>
-
                     
                     </Form>
 

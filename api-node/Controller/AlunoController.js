@@ -1,4 +1,7 @@
 const Alunos = require('../models/Aluno')
+const db = require('../models/database')
+const Sequelize = require("sequelize");
+const { QueryTypes } = Sequelize;
 
 module.exports = (app) =>{
     const get = async(req, res) =>{
@@ -71,9 +74,27 @@ module.exports = (app) =>{
         
     }
 
+    const verificaBoletim = async(req, res)=>{
+        const query = await db.query(
+            `
+            SELECT
+                aprovacao, matricula, turma
+            FROM
+                boletins
+            WHERE
+                ${req.params.matricula} = matricula
+    
+            `,{type: QueryTypes.SELECT}
+        ).then((boletim)=>{
+            return res.json(boletim);
+        }).catch((error)=>{
+            console.log("**************** ERRORRRR *********************");
+            return console.log(error);
+        });
+    
+    }
 
 
 
-
-    return { get, save, remove, search, create };
+    return { get, save, remove, search, create, verificaBoletim };
 }

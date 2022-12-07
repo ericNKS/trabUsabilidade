@@ -12,6 +12,7 @@ class Turmas extends React.Component{
             professores: '',
             disciplinas: '',
             alunos: '',
+            matriculaAluno: '',
             sala: '',
             turmas : 
             [
@@ -32,7 +33,7 @@ class Turmas extends React.Component{
     }
 
     buscarTurma = () => {
-        fetch("https://localhost:5001/alunos")
+        fetch("http://localhost:5001/turma")
         .then(resposta => resposta.json())
         .then(dados => {
             this.setState( {turmas : dados})
@@ -40,7 +41,7 @@ class Turmas extends React.Component{
     }    
 
     deletarTurma = (id) => {
-        fetch("https://localhost:5001/alunos"+id, {method: 'DELETE'})
+        fetch("http://localhost:5001/turma/"+id, {method: 'DELETE'})
         .then(resposta =>  {
           if(resposta.ok) {
             this.buscarTurma();
@@ -49,7 +50,7 @@ class Turmas extends React.Component{
     }
 
     buscarDados = (id) => {
-        fetch("https://localhost:5001/alunos"+id, {method: 'GET'})
+        fetch("http://localhost:5001/turma/"+id, {method: 'GET'})
         .then(resposta => resposta.json())
         .then(turma => {
             this.setState( {
@@ -64,7 +65,7 @@ class Turmas extends React.Component{
     }
 
     cadastrarTurma = (turma) => {
-        fetch("https://localhost:5001/alunos",
+        fetch("http://localhost:5001/turma",
         {method: 'POST', 
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(turma)
@@ -77,7 +78,7 @@ class Turmas extends React.Component{
     }
 
     atualizarTurma = (turma) => {
-        fetch("https://localhost:5001/alunos",
+        fetch("http://localhost:5001/turma",
         {method: 'PUT', 
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(turma)
@@ -112,7 +113,6 @@ class Turmas extends React.Component{
                             <td>{turma.alunos}</td>
                             <td>{turma.sala}</td>
                             <td>
-                                <Button variant="primary" onClick={() => this.buscarDados(turma.id)}>Atualizar</Button> 
                                 <Button variant="danger" onClick={() => this.deletarTurma(turma.id)}>Excluir</Button></td>
                         </tr>
                     )
@@ -154,28 +154,12 @@ class Turmas extends React.Component{
         )
     }
 
-    salvar() {
-
-        if(this.state.id == 0) {
+    salvar = ()=> {
             const aluno = {
                 professores: this.state.professores,
-                disciplinas: this.state.disciplinas,
-                alunos: this.state.alunos,
                 sala: this.state.sala
             }
                 this.cadastrarTurma(aluno);
-        }
-        else{
-            const aluno = {
-                id: this.state.id,
-                professores: this.state.professores,
-                disciplinas: this.state.disciplinas,
-                alunos: this.state.alunos,
-                sala: this.state.sala
-            }
-                this.atualizarTurma(aluno);
-        }
-
         this.fecharModal();
         
     }
@@ -183,10 +167,8 @@ class Turmas extends React.Component{
     adicionar = () => {
         this.setState(
             {
-                id: 0,
                 professores: '',
                 disciplinas: '',
-                alunos: '',
                 sala: ''
                 
             }
@@ -224,40 +206,15 @@ abrirModal = () => {
                     <Form>
 
                     <Form.Group className="mb-3">
-                    <Form.Label>ID:</Form.Label>
-                    <Form.Control type="text" value={this.state.id} readOnly={true}/> 
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                    <Form.Label>Digite o professor da turma:</Form.Label>
-                    <Form.Control type="text" placeholder="Ex: João da Silva" value={this.state.professores} onChange={this.atualizarProfessor}/> 
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                    <Form.Label>Selecione a disciplina:</Form.Label>
-                    <Form.Check label="Português" type="radio" name="disciplinas" value={this.state.disciplinas} onChange={this.atualizarDisciplinas}/>
-                    <Form.Check label="Inglês" type="radio" name="disciplinas" value={this.state.disciplinas} onChange={this.atualizarDisciplinas}/>
-                    <Form.Check label="Matemática" type="radio" name="disciplinas" value={this.state.disciplinas} onChange={this.atualizarDisciplinas}/>
-                    <Form.Check label="História" type="radio" name="disciplinas" value={this.state.disciplinas} onChange={this.atualizarDisciplinas}/>
-                    <Form.Check label="Geografia" type="radio" name="disciplinas" value={this.state.disciplinas} onChange={this.atualizarDisciplinas}/>
-                    <Form.Check label="Ed. Física" type="radio" name="disciplinas" value={this.state.disciplinas} onChange={this.atualizarDisciplinas}/>
-                    <Form.Check label="Biologia" type="radio" name="disciplinas" value={this.state.disciplinas} onChange={this.atualizarDisciplinas}/>
-                    <Form.Check label="Química" type="radio" name="disciplinas" value={this.state.disciplinas} onChange={this.atualizarDisciplinas}/>
-                    <Form.Check label="Física" type="radio" name="disciplinas" value={this.state.disciplinas} onChange={this.atualizarDisciplinas}/>
-                    <Form.Check label="Sociologia" type="radio" name="disciplinas" value={this.state.disciplinas} onChange={this.atualizarDisciplinas}/>
-                    <Form.Check label="Filosofia" type="radio" name="disciplinas" value={this.state.disciplinas} onChange={this.atualizarDisciplinas}/>
-                    </Form.Group>
-
-                    <Form.Group className="mb-3">
-                    <Form.Label>Digite os nomes dos Alunos:</Form.Label>
-                    <Form.Control type="text" placeholder="Ex: 1234" value={this.state.alunos} onChange={this.atualizarAlunos}/>
+                    <Form.Label>Digite o CPF do professor da turma:</Form.Label>
+                    <Form.Control type="text" placeholder="Ex: 342.343.070-25" value={this.state.professores} onChange={this.atualizarProfessor.bind(this)}/> 
                     </Form.Group>
 
                     <Form.Group className="mb-3">
                     <Form.Label>Selecione o módulo:</Form.Label>
-                    <Form.Check label="Módulo 1" type="radio" name="salas" value={this.state.sala} onChange={this.atualizarSala}/>
-                    <Form.Check label="Módulo 2" type="radio" name="salas" value={this.state.sala} onChange={this.atualizarSala}/>
-                    <Form.Check label="Módulo 3" type="radio" name="salas" value={this.state.sala} onChange={this.atualizarSala}/>
+                    <Form.Check label="Módulo 1" type="radio" name="salas" value={"Módulo 1"} onChange={this.atualizarSala.bind(this)}/>
+                    <Form.Check label="Módulo 2" type="radio" name="salas" value={"Módulo 2"} onChange={this.atualizarSala.bind(this)}/>
+                    <Form.Check label="Módulo 3" type="radio" name="salas" value={"Módulo 3"} onChange={this.atualizarSala.bind(this)}/>
                     </Form.Group>
                     
                     </Form>
