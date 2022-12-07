@@ -131,7 +131,7 @@ class Alunos extends React.Component{
                             <td>{aluno.sala}</td>
                             <td>
                                 <Button variant="primary" onClick={() => this.abrirModal()}>Atualizar</Button> 
-                                <Button variant="danger" onClick={() => this.deletarAluno(aluno.matricula)}>Excluir</Button></td>
+                                <Button variant="danger btn-sm" onClick={() => this.deletarAluno(aluno.matricula)}>Excluir</Button></td>
                         </tr>
                     )
                 }    
@@ -276,7 +276,7 @@ abrirModal = () => {
 
                 <br/>
 
-                <Button variant="secondary" onClick={this.abrirModal}>Adicionar</Button>
+                <Button variant="outline-light" onClick={this.abrirModal}>Adicionar</Button>
 
                 <br/>
                 <br/>

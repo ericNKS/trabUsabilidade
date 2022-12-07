@@ -230,7 +230,7 @@ abrirModal = () => {
 
                 <br/>
 
-                <Button variant="secondary" onClick={this.abrirModal}>Adicionar</Button>
+                <Button variant="outline-light" onClick={this.abrirModal}>Adicionar</Button>
 
                 <br/>
                 <br/>

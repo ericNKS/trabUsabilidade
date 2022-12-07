@@ -239,25 +239,29 @@ abrirModal = () => {
 
                     <Form.Group className="mb-3">
                     <Form.Label>Selecione o Título Acadêmico do Professor:</Form.Label>
-                    <Form.Check label="Graduação (Licenciatura)" type="radio" name="titulos" value={'Graduação'} onChange={this.atualizarTituloAcad.bind(this)}/>
-                    <Form.Check label="Pós-Graduação" type="radio" name="titulos" value={"Pós-Graduação"} onChange={this.atualizarTituloAcad.bind(this)}/>
-                    <Form.Check label="Mestrado" type="radio" name="titulos" value={"Mestrado"} onChange={this.atualizarTituloAcad.bind(this)}/>
-                    <Form.Check label="Doutorado" type="radio" name="titulos" value={"Doutorado"} onChange={this.atualizarTituloAcad.bind(this)}/>
+                    <select class="form-control" id="titulos" onChange={this.atualizarTituloAcad.bind(this)}>
+                        <option>Graduação Licenciatura</option>
+                        <option>Pós-Graduação</option>
+                        <option>Mestrado</option>
+                        <option>Doutorado</option>
+                    </select>
                     </Form.Group>
 
                     <Form.Group className="mb-3">
                     <Form.Label>Selecione a disciplina:</Form.Label>
-                    <Form.Check label="Português" type="radio" name="disciplinas" value={'Português'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Inglês" type="radio" name="disciplinas" value={'Inglês'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Matemática" type="radio" name="disciplinas" value={'Matemática'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="História" type="radio" name="disciplinas" value={'História'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Geografia" type="radio" name="disciplinas" value={'Geografia'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Ed. Física" type="radio" name="disciplinas" value={'Ed. Física'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Biologia" type="radio" name="disciplinas" value={'Biologia'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Química" type="radio" name="disciplinas" value={'Química'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Física" type="radio" name="disciplinas" value={'Física'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Sociologia" type="radio" name="disciplinas" value={'Sociologia'} onChange={this.atualizarDisciplina.bind(this)}/>
-                    <Form.Check label="Filosofia" type="radio" name="disciplinas" value={'Filosofia'} onChange={this.atualizarDisciplina.bind(this)}/>
+                    <select class="form-control" id="disciplinas" onChange={this.atualizarDisciplina.bind(this)}>
+                        <option>Português</option>
+                        <option>Matemática</option>
+                        <option>Ed Física</option>
+                        <option>Sociologia</option>
+                        <option>Filosofia</option>
+                        <option>Química</option>
+                        <option>Biologia</option>
+                        <option>Física</option>
+                        <option>Inglês</option>
+                        <option>História</option>
+                        <option>Geografia</option>
+                    </select>
                     </Form.Group>
                     
                     </Form>
@@ -273,7 +277,7 @@ abrirModal = () => {
 
                 <br/>
 
-                <Button variant="secondary" onClick={this.abrirModal}>Adicionar</Button>
+                <Button variant="outline-light" onClick={this.abrirModal}>Adicionar</Button>
 
                 <br/>
                 <br/>

@@ -12,17 +12,17 @@ function App() {
   return (
     <div className="App" >
 
-      <h1><center>Centro Educacional Eagles</center></h1>
+      <h1 className='text-light text-uppercase mb-4'><center>Centro Educacional Eagles</center></h1>
       
       <BrowserRouter>
     
-    <Nav variant="tabs" >
+    <Nav variant="tabs" className=''>
      
-        <Nav.Link as={Link} to="/">Página Inicial</Nav.Link>
-        <Nav.Link as={Link} to="/professores">Cadastro de Professores</Nav.Link>
-        <Nav.Link as={Link} to="/alunos">Cadastro de Alunos</Nav.Link>
-        <Nav.Link as={Link} to="/Turmas">Cadastro de Turmas</Nav.Link>
-        <Nav.Link as={Link} to="/boletim">Boletim</Nav.Link>
+        <Nav.Link as={Link} className='nav-link' to="/">Página Inicial</Nav.Link>
+        <Nav.Link as={Link} className='nav-link' to="/professores">Cadastro de Professores</Nav.Link>
+        <Nav.Link as={Link} className='nav-link' to="/alunos">Cadastro de Alunos</Nav.Link>
+        <Nav.Link as={Link} className='nav-link' to="/Turmas">Cadastro de Turmas</Nav.Link>
+        <Nav.Link as={Link} className='nav-link' to="/boletim">Boletim</Nav.Link>
     
     </Nav>
 
