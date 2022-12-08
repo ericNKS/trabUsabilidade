@@ -30,6 +30,6 @@ const Escola = db.define('escola', {
     
 });
 
-//Escola.sync();
+//Escola.sync({ alter: true });
 
 module.exports = Escola
