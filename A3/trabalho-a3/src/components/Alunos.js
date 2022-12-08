@@ -12,11 +12,11 @@ class Alunos extends React.Component{
             nome: '',
             cpf: '',
             matricula: '',
-            sala: 'Módulo 1',
+            sala: '',
             alunos : [],
             modalAberto: false,
             retorno: {},
-            retornoBoletim: []
+            retornoBoletim: {}
         }
 
     }
@@ -72,27 +72,8 @@ class Alunos extends React.Component{
         fetch("http://localhost:5001/alunos/boletim/"+id, {method: 'GET'})
         .then(resposta => resposta.json())
         .then(dados => {
-            this.setState({
-                retornoBoletim: dados
-            })
+            
             console.log(dados);
-            if(dados.length == 1 && dados[0].aprovacao == 1){
-                this.setState({
-                    sala: "Módulo 2"
-                })
-            }else if(dados.length == 1 && dados[0].aprovacao == 0){
-                this.setState({
-                    sala: "Módulo 1"
-                })
-            }else if(dados.length == 2 && dados[1].aprovacao == 1){
-                this.setState({
-                    sala: "Módulo 3"
-                })
-            }else if(dados.length == 1 && dados[1].aprovacao == 0){
-                this.setState({
-                    sala: "Módulo 1"
-                })
-            }
         })
     }
 
@@ -279,7 +260,7 @@ abrirModal = () => {
             
                     <Form.Group className="mb-3">
                     <Form.Label>Selecione o módulo:</Form.Label>
-                    <Form.Check label={this.state.sala} id="modulo" type="radio" name="salas" value={this.state.sala} onChange={this.atualizarSala.bind(this)}/>
+                    <Form.Check label="Módulo 1" type="radio" name="salas" value={this.state.sala} onChange={this.atualizarSala.bind(this)}/>
                     </Form.Group>
                     
                     </Form>

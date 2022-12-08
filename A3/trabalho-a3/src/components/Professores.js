@@ -10,8 +10,8 @@ class Professores extends React.Component{
         this.state = {
             nome: '',
             cpf: '',
-            tituloAcad: 'Graduação Licenciatura',
-            disciplina: 'Português',
+            tituloAcad: '',
+            disciplina: '',
             professores : [],
             modalAberto: false,
             retorno: {}

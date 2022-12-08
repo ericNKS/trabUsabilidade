@@ -19,6 +19,6 @@ const Turma = db.define('turma', {
     
 });
 
-//Turma.sync();
+//Turma.sync({ alter: true });
 
 module.exports = Turma

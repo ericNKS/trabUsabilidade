@@ -22,6 +22,6 @@ const Professor = db.define('professor', {
     
 });
 
-Professor.sync({ alter: true });
+//Professor.sync({ alter: true });
 
 module.exports = Professor

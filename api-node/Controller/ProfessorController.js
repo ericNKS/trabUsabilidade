@@ -73,8 +73,6 @@ module.exports = (app) =>{
         await professor.save().then(()=>{
             return res.send("ok")
         })
-
-        console.log(req.body);
         //console.log(req.params.matricula);
         
     }
