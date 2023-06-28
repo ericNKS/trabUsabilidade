@@ -54,7 +54,7 @@ module.exports = (app) =>{
         /*
 
             nome: 'Esdras',
-            cpf: '09663336595',
+            cpf: '09663234575',
             tituloAcad: 'Pós-Graduação',
             disciplina: 'Português'
 
